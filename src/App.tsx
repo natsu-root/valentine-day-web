@@ -33,27 +33,28 @@ function App() {
     <div className="min-h-screen bg-[#fdfbf7] text-gray-800 font-sans relative overflow-hidden">
 
       {/* Global Vintage Frame Overlay */}
+      {/* Global Vintage Frame Overlay */}
       <div className="absolute inset-0 pointer-events-none z-50 h-full min-h-screen">
         {/* Outer Wood Frame */}
-        <div className="absolute inset-0 border-[15px] sm:border-[25px] border-[#5c4033] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]"
+        <div className="absolute inset-0 border-[8px] sm:border-[25px] border-[#5c4033] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]"
           style={{ borderImage: 'url("https://www.transparenttextures.com/patterns/wood-pattern.png") 30 stretch' }}>
         </div>
 
         {/* Inner Gold Bevel */}
-        <div className="absolute inset-[15px] sm:inset-[25px] border-[5px] border-[#b8860b] shadow-[0_0_15px_rgba(0,0,0,0.5)]"></div>
+        <div className="absolute inset-[8px] sm:inset-[25px] border-[2px] sm:border-[5px] border-[#b8860b] shadow-[0_0_15px_rgba(0,0,0,0.5)]"></div>
 
         {/* Inner Matting (Cream) */}
-        <div className="absolute inset-[20px] sm:inset-[30px] border-[10px] sm:border-[20px] border-[#f0ece1]"></div>
+        <div className="absolute inset-[10px] sm:inset-[30px] border-[5px] sm:border-[20px] border-[#f0ece1]"></div>
 
         {/* Shadow inside the frame */}
-        <div className="absolute inset-[30px] sm:inset-[50px] shadow-[inset_0_0_50px_rgba(0,0,0,0.3)]"></div>
+        <div className="absolute inset-[15px] sm:inset-[50px] shadow-[inset_0_0_50px_rgba(0,0,0,0.3)]"></div>
 
         {/* Glass Reflection (Global) */}
         <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-black/5 opacity-40 mix-blend-overlay"></div>
         <div className="absolute top-0 right-0 w-2/3 h-1/3 bg-gradient-to-bl from-white/20 to-transparent blur-3xl opacity-30"></div>
       </div>
 
-      <div className="relative z-10 h-full overflow-y-auto pt-16 pb-16 sm:pt-24 sm:pb-24 px-8 sm:px-12">
+      <div className="relative z-10 h-full overflow-y-auto pt-12 pb-28 sm:pt-24 sm:pb-24 px-4 sm:px-12">
         {!entered ? (
           <Landing onEnter={handleEnter} />
         ) : (
