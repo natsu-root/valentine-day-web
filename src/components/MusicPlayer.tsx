@@ -31,23 +31,47 @@ export function MusicPlayer() {
         }
     };
 
+    const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = parseFloat(e.target.value);
+        if (audioRef.current) {
+            audioRef.current.volume = value;
+            setIsMuted(value === 0);
+        }
+    };
+
     return (
-        <div className="fixed bottom-4 right-4 bg-white/80 backdrop-blur-md p-3 rounded-full shadow-lg flex items-center gap-3 z-50">
-            <audio ref={audioRef} src="./music/bgm.mp3" loop />
+        <div className="absolute bottom-12 right-12 z-[60] flex items-center gap-4">
+            {/* Player Container */}
+            <div className="bg-[#f0ece1]/90 backdrop-blur-sm p-3 rounded-full shadow-[0_4px_6px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.5)] border border-[#d6cfc2] flex items-center gap-3 transition-all hover:scale-105 duration-300">
+                <audio ref={audioRef} src="./music/bgm.mp3" loop />
 
-            <button
-                onClick={togglePlay}
-                className="p-2 bg-pink-500 rounded-full text-white hover:bg-pink-600 transition-colors"
-            >
-                {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-            </button>
+                <button
+                    onClick={togglePlay}
+                    className="p-3 bg-[#b8860b] rounded-full text-white hover:bg-[#8b6508] transition-colors shadow-sm"
+                >
+                    {isPlaying ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" className="ml-0.5" />}
+                </button>
 
-            <button
-                onClick={toggleMute}
-                className="p-2 text-pink-500 hover:bg-pink-100 rounded-full transition-colors"
-            >
-                {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-            </button>
+                <div className="flex items-center gap-2 pr-2 group">
+                    <button
+                        onClick={toggleMute}
+                        className="p-2 text-[#5c4033] hover:bg-[#e6dfd1] rounded-full transition-colors"
+                    >
+                        {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                    </button>
+
+                    {/* Volume Slider - always visible or reveal on hover? Keeping it visible for usability as requested */}
+                    <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        defaultValue="1"
+                        onChange={handleVolumeChange}
+                        className="w-20 h-1.5 bg-[#d6cfc2] rounded-lg appearance-none cursor-pointer accent-[#b8860b] hover:accent-[#8b6508]"
+                    />
+                </div>
+            </div>
         </div>
     );
 }

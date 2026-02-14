@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Heart } from 'lucide-react';
 
@@ -6,39 +7,56 @@ interface LandingProps {
 }
 
 export function Landing({ onEnter }: LandingProps) {
+    const [noBtnPos, setNoBtnPos] = useState({ x: 0, y: 0 });
+    const [isHovered, setIsHovered] = useState(false);
+
+    const moveNoButton = () => {
+        const x = Math.random() * (window.innerWidth - 100) - (window.innerWidth / 2 - 50);
+        const y = Math.random() * (window.innerHeight - 100) - (window.innerHeight / 2 - 50);
+        setNoBtnPos({ x, y });
+        setIsHovered(true);
+    };
+
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-pink-50 text-pink-600">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-center relative z-20">
             <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 260, damping: 30 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="mb-8"
             >
-                <div
-                    className="cursor-pointer relative group"
-                    onClick={onEnter}
-                >
-                    <Heart
-                        className="w-32 h-32 text-red-500 fill-red-500 drop-shadow-lg group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <motion.div
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-xl"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                    >
-                        Open Me
-                    </motion.div>
-                </div>
+                <Heart className="w-24 h-24 text-[#b8860b] fill-red-500 drop-shadow-md animate-pulse" />
             </motion.div>
+
             <motion.h1
-                className="mt-8 text-4xl font-['Cinzel'] text-pink-800 tracking-widest"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.8 }}
+                className="text-3xl md:text-5xl font-['Cinzel'] text-[#4a3728] font-bold mb-12 drop-shadow-sm px-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
             >
-                FOR YOU AAKO
+                Will You Be My Valentine?
             </motion.h1>
-            <p className="mt-4 text-pink-400">Click the heart to begin</p>
+
+            <div className="flex flex-col md:flex-row items-center gap-8 relative">
+                <motion.button
+                    onClick={onEnter}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-8 py-3 bg-[#b8860b] text-white font-['Playfair_Display'] text-xl rounded-full shadow-lg hover:bg-[#8b6508] transition-colors border-2 border-[#f0ece1]"
+                >
+                    Yes, Absolutely! 💖
+                </motion.button>
+
+                <motion.button
+                    onHoverStart={moveNoButton}
+                    onClick={moveNoButton}
+                    animate={{ x: noBtnPos.x, y: noBtnPos.y }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className={`px-8 py-3 bg-[#f0ece1] text-[#4a3728] font-['Playfair_Display'] text-xl rounded-full shadow-md border-2 border-[#b8860b] ${isHovered ? 'absolute' : 'relative'}`}
+                >
+                    No 😢
+                </motion.button>
+            </div>
         </div>
     );
 }

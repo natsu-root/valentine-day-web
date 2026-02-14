@@ -16,52 +16,37 @@ export function Gallery() {
     }, []);
 
     return (
-        <div className="relative w-full h-[60vh] flex items-center justify-center overflow-hidden my-8">
+        <div className="relative w-full h-[70vh] flex items-center justify-center overflow-hidden my-8">
             <AnimatePresence mode="popLayout">
                 <motion.div
                     key={index}
-                    className="absolute bg-white p-3 pb-12 shadow-2xl transform origin-bottom w-full max-w-[260px] sm:max-w-[300px]"
-                    initial={{ opacity: 0, scale: 0.8, rotate: Math.random() * 10 - 5, x: 100 }}
-                    animate={{
-                        opacity: 1,
-                        scale: 1,
-                        rotate: Math.random() * 6 - 3,
-                        x: 0,
-                        filter: ["grayscale(0%) sepia(0%)", "grayscale(30%) sepia(20%)"] // Subtle vintage flicker
-                    }}
-                    exit={{ opacity: 0, scale: 1.1, rotate: Math.random() * 10 - 5, x: -100 }}
-                    transition={{
-                        duration: 1.5,
-                        ease: "easeInOut"
-                    }}
+                    className="absolute z-10 w-full max-w-[280px] sm:max-w-[400px]"
+                    initial={{ opacity: 0, scale: 0.9, rotate: Math.random() * 6 - 3 }}
+                    animate={{ opacity: 1, scale: 1, rotate: Math.random() * 4 - 2 }}
+                    exit={{ opacity: 0, scale: 1.05 }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
                 >
-                    {/* Inner content with slow zoom */}
-                    <motion.div
-                        className="overflow-hidden bg-gray-100 aspect-[3/4]"
-                        animate={{ scale: [1, 1.1] }}
-                        transition={{ duration: 6, ease: "linear" }}
-                    >
-                        <img
+                    {/* Tape effect (Optional - keeps it looking like it's stuck on the wall) */}
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-white/60 backdrop-blur-[1px] shadow-sm rotate-1 z-20" />
+
+                    <div className="relative shadow-xl">
+                        {/* Simple borderless photo */}
+                        <motion.img
                             src={IMAGES[index]}
                             alt={`Memory ${index + 1}`}
-                            className="w-full h-full object-cover"
+                            className="w-full h-auto aspect-[3/4] object-cover"
+                            initial={{ filter: "sepia(0%)" }}
+                            animate={{ filter: "sepia(20%) contrast(105%)" }} // Slight vintage touch
                         />
-                    </motion.div>
 
-                    {/* Tape effect */}
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 bg-white/80 backdrop-blur-sm shadow-sm rotate-2 z-10" />
-
-                    <div className="absolute bottom-4 left-0 right-0 text-center font-['Courier_Prime'] text-gray-600 text-base tracking-widest font-bold">
-                        {`MEMORY 0${index + 1}`}
+                        {/* Subtle dust overlay for the photo itself */}
+                        <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay"></div>
                     </div>
                 </motion.div>
             </AnimatePresence>
 
-            {/* Background stack effect hint */}
-            <div className="absolute inset-0 flex items-center justify-center -z-10 opacity-30 pointer-events-none">
-                <div className="w-full max-w-[260px] sm:max-w-[300px] aspect-[3/4.5] bg-white transform rotate-6 border border-gray-200 shadow-xl"></div>
-                <div className="absolute w-full max-w-[260px] sm:max-w-[300px] aspect-[3/4.5] bg-white transform -rotate-3 border border-gray-200 shadow-xl"></div>
-            </div>
+            {/* Wall Shadow / Ambience */}
+            <div className="absolute inset-0 bg-radial-gradient from-transparent to-black/10 pointer-events-none" />
         </div>
     );
 }

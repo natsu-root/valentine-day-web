@@ -30,26 +30,50 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#fff0f3] via-[#ffe4e6] to-[#fecdd3] text-gray-800 font-sans">
-      {!entered ? (
-        <Landing onEnter={handleEnter} />
-      ) : (
-        <div className="container mx-auto px-4 py-8">
-          <header className="text-center mb-12 animate-fade-in-down">
-            <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-800 to-pink-700 font-['Cinzel'] mb-4 tracking-wider drop-shadow-sm">
-              Happy Valentine's Day, Aako
-            </h1>
-            <p className="text-xl text-pink-500">My love, my memories, my everything.</p>
-          </header>
+    <div className="min-h-screen bg-[#fdfbf7] text-gray-800 font-sans relative overflow-hidden">
 
-          <Gallery />
-          <MusicPlayer />
-
-          <footer className="text-center mt-20 pb-8 text-pink-300 text-sm">
-            Made with ❤️ for You
-          </footer>
+      {/* Global Vintage Frame Overlay */}
+      <div className="absolute inset-0 pointer-events-none z-50 h-full min-h-screen">
+        {/* Outer Wood Frame */}
+        <div className="absolute inset-0 border-[15px] sm:border-[25px] border-[#5c4033] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]"
+          style={{ borderImage: 'url("https://www.transparenttextures.com/patterns/wood-pattern.png") 30 stretch' }}>
         </div>
-      )}
+
+        {/* Inner Gold Bevel */}
+        <div className="absolute inset-[15px] sm:inset-[25px] border-[5px] border-[#b8860b] shadow-[0_0_15px_rgba(0,0,0,0.5)]"></div>
+
+        {/* Inner Matting (Cream) */}
+        <div className="absolute inset-[20px] sm:inset-[30px] border-[10px] sm:border-[20px] border-[#f0ece1]"></div>
+
+        {/* Shadow inside the frame */}
+        <div className="absolute inset-[30px] sm:inset-[50px] shadow-[inset_0_0_50px_rgba(0,0,0,0.3)]"></div>
+
+        {/* Glass Reflection (Global) */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-black/5 opacity-40 mix-blend-overlay"></div>
+        <div className="absolute top-0 right-0 w-2/3 h-1/3 bg-gradient-to-bl from-white/20 to-transparent blur-3xl opacity-30"></div>
+      </div>
+
+      <div className="relative z-10 h-full overflow-y-auto pt-16 pb-16 sm:pt-24 sm:pb-24 px-8 sm:px-12">
+        {!entered ? (
+          <Landing onEnter={handleEnter} />
+        ) : (
+          <div className="container mx-auto max-w-4xl">
+            <header className="text-center mb-12 animate-fade-in-down">
+              <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#8b4513] to-[#cd853f] font-['Cinzel'] mb-4 tracking-wider drop-shadow-sm">
+                Happy Valentine's Day, Aako
+              </h1>
+              <p className="text-xl text-[#8b5a2b] font-['Playfair_Display'] italic">My love, my memories, my everything.</p>
+            </header>
+
+            <Gallery />
+            <MusicPlayer />
+
+            <footer className="text-center mt-20 pb-8 text-[#a07c5e] text-sm font-['Courier_Prime']">
+              Made with ❤️ for You
+            </footer>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
