@@ -1,19 +1,14 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// In a real app, you might dynamically load these
-const IMAGES = [
-    './images/IMG_20231214_154821.jpg',
-    './images/IMG_20231214_154827.jpg',
-    './images/IMG_20231214_154844.jpg',
-    './images/IMG_20231214_193817.jpg',
-    './images/IMG_20231214_193854.jpg',
-];
+const imagesGlob = import.meta.glob('../assets/images/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' });
+const IMAGES = Object.values(imagesGlob) as string[];
 
 export function Gallery() {
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
+        if (IMAGES.length === 0) return;
         const timer = setInterval(() => {
             setIndex((prev) => (prev + 1) % IMAGES.length);
         }, 5000);
